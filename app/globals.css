@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f0f23;
+  --foreground: #e2e8f0;
+  --primary: #8b5cf6;
+  --primary-light: #a78bfa;
+  --secondary: #06b6d4;
+  --accent: #ec4899;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a3e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #a78bfa, #22d3ee);
+}
+
+/* Scrollbar custom pour certaines zones (si besoin) */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+}
+
+/* Glow effects */
+.glow {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Member {
+  id            String         @id @default(cuid())
+  nom           String
+  prenom        String
+  email         String         @unique
+  telephone     String
+  photoUrl      String?
+  qrCodeId      String         @unique @default(cuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  subscriptions Subscription[]
+  visits        Visit[]
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+  memberId  String
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  type      String   // "mensuel", "trimestriel", "annuel"
+  dateDebut DateTime
+  dateFin   DateTime
+  prix      Float
+  actif     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+}
+
+model Visit {
+  id       String   @id @default(cuid())
+  memberId String
+  member   Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  scanDate DateTime @default(now())
+
+  @@index([memberId])
+}
