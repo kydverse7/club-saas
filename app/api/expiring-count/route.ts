@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { differenceInDays } from 'date-fns'
+
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
@@ -14,13 +15,14 @@ export async function GET() {
     const now = new Date()
     const expiringCount = subscriptions.filter(sub => {
       const dateFin = new Date(sub.dateFin)
-      const daysUntilExpiration = differenceInDays(dateFin, now)
+      const diffTime = dateFin.getTime() - now.getTime()
+      const daysUntilExpiration = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
       return daysUntilExpiration >= 0 && daysUntilExpiration <= 5
     }).length
 
     return NextResponse.json({ count: expiringCount })
   } catch (error) {
     console.error('Erreur:', error)
-    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 })
+    return NextResponse.json({ count: 0 }, { status: 200 })
   }
 }
