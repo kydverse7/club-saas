@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { 
   Dumbbell, 
@@ -64,9 +65,11 @@ const benefits = [
   "Personnalisation possible"
 ]
 
-export default function LandingPage() {
+export default function AccueilPage() {
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null)
+
   return (
-    <div className="min-h-[calc(100vh-40px)] overflow-y-auto">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center px-4 overflow-hidden">
         {/* Background Effects */}
@@ -105,9 +108,9 @@ export default function LandingPage() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/login">
+            <Link href="/">
               <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-semibold text-lg text-white shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 hover:scale-105 transition-all duration-300 flex items-center gap-2">
-                Accéder à l'espace admin
+                Accéder au Dashboard
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
@@ -160,6 +163,8 @@ export default function LandingPage() {
               <div
                 key={index}
                 className="glass rounded-2xl p-6 glow-hover cursor-pointer group border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300"
+                onMouseEnter={() => setHoveredFeature(index)}
+                onMouseLeave={() => setHoveredFeature(null)}
               >
                 <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${feature.color} shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className="h-6 w-6 text-white" />
@@ -237,7 +242,7 @@ export default function LandingPage() {
               Commencez dès maintenant et découvrez une nouvelle façon de gérer votre établissement.
             </p>
             
-            <Link href="/login">
+            <Link href="/">
               <button className="group px-10 py-5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-semibold text-xl text-white shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto">
                 Commencer maintenant
                 <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />

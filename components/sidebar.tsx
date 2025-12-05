@@ -3,17 +3,17 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, UserPlus, Calendar, QrCode, Dumbbell, Users, BarChart3, AlertTriangle } from "lucide-react"
+import { Home, UserPlus, Calendar, QrCode, Dumbbell, Users, BarChart3, AlertTriangle, LogOut } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home },
-  { name: "Nouveaux Clients", href: "/nouveaux-clients", icon: UserPlus },
-  { name: "Membres", href: "/membres", icon: Users },
-  { name: "Abonnements", href: "/abonnements", icon: Calendar },
-  { name: "Bientôt Expirés", href: "/expiration", icon: AlertTriangle },
-  { name: "Statistiques", href: "/statistiques", icon: BarChart3 },
-  { name: "Scanner QR", href: "/scanner", icon: QrCode },
+  { name: "Dashboard", href: "/dashboard", icon: Home },
+  { name: "Nouveaux Clients", href: "/dashboard/nouveaux-clients", icon: UserPlus },
+  { name: "Membres", href: "/dashboard/membres", icon: Users },
+  { name: "Abonnements", href: "/dashboard/abonnements", icon: Calendar },
+  { name: "Bientôt Expirés", href: "/dashboard/expiration", icon: AlertTriangle },
+  { name: "Statistiques", href: "/dashboard/statistiques", icon: BarChart3 },
+  { name: "Scanner QR", href: "/dashboard/scanner", icon: QrCode },
 ]
 
 export function Sidebar() {
@@ -87,7 +87,19 @@ export function Sidebar() {
             )
           })}
         </nav>
-        <div className="px-4 py-4">
+        <div className="px-4 py-4 space-y-3">
+          <Link
+            href="/"
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                localStorage.removeItem('isLoggedIn')
+              }
+            }}
+            className="flex items-center px-4 py-3 text-sm font-medium rounded-xl text-red-300 hover:bg-red-500/20 hover:text-red-200 transition-all duration-300 border border-red-500/20 hover:border-red-500/50"
+          >
+            <LogOut className="mr-3 h-5 w-5" />
+            Déconnexion
+          </Link>
           <div className="glass rounded-xl p-4">
             <p className="text-xs text-purple-300 mb-2">Version</p>
             <p className="text-sm font-semibold text-white">v1.0.0</p>
